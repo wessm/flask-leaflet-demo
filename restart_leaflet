@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    flag="-d"
+else
+	flag="$1"
+fi
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+docker stop leaflet
+docker run --rm ${flag} \
+	-v ${DIR}/app:/app \
+	--net=mynet \
+	--name leaflet \
+	-p 8020:80 \
+	leaflet
+

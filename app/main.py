@@ -62,14 +62,14 @@ def district(district_id):
 
 
 def make_random_data(db):
-    NDISTRICTS = 5
-    NPOINTS = 10
+    NDISTRICTS = 10
+    NPOINTS = 50
     for did in range(NDISTRICTS):
         district = District(did, "District %d" % did, BASECOORDS[0], BASECOORDS[1])
         db.session.add(district)
         for pid in range(NPOINTS):
-            lat = random.random() - 0.5
-            lng = random.random() - 0.5
+            lat = random.random() - 1.5
+            lng = random.random() - 1.5
             row = Point(pid + NPOINTS * did, district, lat, lng)
             db.session.add(row)
     db.session.commit()
@@ -81,4 +81,4 @@ if __name__ == '__main__':
             db.create_all()
             make_random_data(db)
     else:
-        app.run(debug=True)
+        app.run(debug=True, port=80)
